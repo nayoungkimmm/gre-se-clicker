@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GRE SE Priority Pair Trainer</title>
+  <style>body{margin:0;display:grid;min-height:100vh;place-items:center;font-family:system-ui,sans-serif;color:#243247;background:#f7f8fc}main{text-align:center}p{color:#667085}</style>
+</head>
+<body>
+  <main><h1>학습기를 불러오는 중…</h1><p>잠시만 기다려 주세요.</p></main>
+  <script>
+    (async () => {
+      const files = Array.from({length: 19}, (_, i) => `data/${String(i + 1).padStart(2, '0')}.txt`);
+      const html = (await Promise.all(files.map(file => fetch(file).then(res => {
+        if (!res.ok) throw new Error(file);
+        return res.text();
+      })))).join('');
+      document.open();
+      document.write(html);
+      document.close();
+    })().catch(error => {
+      document.body.innerHTML = '<main><h1>페이지를 불러오지 못했습니다.</h1><p>새로고침해 주세요.</p></main>';
+      console.error(error);
+    });
+  </script>
+</body>
+</html>
